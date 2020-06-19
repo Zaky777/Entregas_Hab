@@ -1,0 +1,23 @@
+body {
+  background-color: rgb(235, 11, 11);
+}
+
+ul {
+  list-style: none;
+  color: rgb(228, 5, 5);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+ul li {
+  font-size: 1em;
+  border-width: 0.2em;
+  border-color: rgb(202, 4, 4);
+  border-style: solid;
+  margin: 1em;
+  padding: 4em;
+  box-sizing: border-box;
+  border-radius: 50%;
+}

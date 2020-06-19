@@ -1,0 +1,113 @@
+@import url("'https://fonts.googleapis.com/css2?family=Barlow:wght@300&display=swap'");
+
+:root {
+  --color: #000505;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(13, 212, 162);
+  font-family: "Barlow";
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+}
+
+h1 {
+  color: rgb(187, 20, 20);
+  text-transform: uppercase;
+  font-size: 1.9em;
+}
+
+p {
+  text-align: center;
+  font-size: 1.1em;
+  font-family: "Barlow";
+}
+
+.boton {
+  font-family: "Barlow";
+  color: white;
+  background-color: var(--color);
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 0.9em;
+  padding: 4px 10px;
+  border-width: 0.15em;
+  border-style: solid;
+  border-color: black;
+}
+
+.cantidades {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cantidades select {
+  padding: 10px 10px 10px 10px;
+  appearance: none;
+  font-size: 16px;
+  background-position: right 10px top 50%, 0, 0;
+  background-size: 12px auto, 100%;
+  background-repeat: no-repeat;
+  border-width: 0.1em;
+  border-style: solid;
+  border-color: black;
+  margin: 1em;
+}
+
+.contenedorcabecera {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cantidades input {
+  font-size: 30px;
+  text-align: right;
+  border-width: 0.05em;
+  border-bottom-style: groove;
+  border-color: black;
+}
+
+.rate {
+  color: var(--color);
+  font-size: 1.2em;
+  padding: 0 10px;
+  text-align: center;
+}
+
+.contenedor_invertir {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+select:focus,
+input:focus,
+button:focus {
+  outline: 0;
+}
+
+@media (max-width: 600px) {
+  .cantidades input {
+    width: 50%;
+    min-height: 50px;
+  }
+
+  boton {
+    display: inline-block;
+  }
+
+  h1 {
+    text-align: center;
+  }
+}

@@ -1,0 +1,240 @@
+@import "normalize.css";
+
+html {
+  --orange: #f2994a;
+  --white: #ffffff;
+  --black: #222222;
+  --gray: #bbbbbb;
+}
+
+body {
+  background-color: var(--orange);
+}
+
+body > main > section {
+  padding: 1.5rem;
+}
+
+.boton {
+  color: var(--white);
+  background-color: var(--black);
+  display: inline-flex;
+  padding: 1rem 1rem 1rem 1rem;
+  text-align: center;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+h1 {
+  color: white;
+  font-size: 3rem;
+  margin: 0;
+}
+
+section#intro p {
+  font-style: bold;
+  font-weight: bolder;
+  text-align: justify;
+}
+
+header#principal {
+  background-image: url("images/vaca1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  min-height: 14rem;
+}
+
+header#principal h1 {
+  margin: 0;
+  text-transform: uppercase;
+  font-size: 3em;
+}
+
+header#principal nav {
+  display: flex;
+
+  flex-grow: 1;
+}
+
+header#principal nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  text-decoration: none;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+main section#comprar {
+  background-color: var(--white);
+}
+
+main header#principal nav ul li {
+  margin: 0rem 0.9rem 0.9rem;
+}
+
+header#principal nav ul li a {
+  color: var(--black);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+section#vacalogo ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+section#vacalogo ul li article {
+  background-color: var(--black);
+  margin-bottom: 1rem;
+}
+
+section#vacalogo ul li article header img {
+  object-fit: cover;
+}
+
+section#vacalogo ul li article header h1 {
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+section#vacalogo ul li article section a {
+  color: var(--black);
+  background-color: var(--gray);
+  font-size: 1.8em;
+  text-decoration: none;
+  text-align: center;
+  display: grid;
+  justify-self: stretch;
+  justify-content: center;
+  padding: 1em;
+  font-style: bold;
+}
+section#comprar {
+  display: block;
+  padding: 1rem 0;
+  text-align: center;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+section#vacalogo ul li article section p {
+  padding: 1rem;
+  color: var(--white);
+}
+
+section#comprar {
+  color: var(--black);
+}
+main section#comprar h2 {
+  margin-bottom: 2rem;
+  color: var(--orange);
+  font-size: 3em;
+}
+
+section#comprar form input:not([type="checkbox"]),
+section#comprar form select,
+section#comprar textarea {
+  border: 2px;
+  border-style: solid;
+  border-color: var(--black);
+  background-color: var(--orange);
+  width: 100%;
+  padding: 0.3rem;
+  color: var(--black);
+}
+
+section#comprar form label {
+  display: block;
+  font-size: 0.75rem;
+  margin-bottom: 0.25;
+}
+
+section#comprar form fieldset:last-of-type label {
+  display: initial;
+}
+
+section#comprar form fieldset:last-of-type input {
+  vertical-align: middle;
+}
+
+@media (min-width: 700px) {
+  header#principal {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-height: 30rem;
+    font-size: xx-large;
+  }
+
+  header#principal > * {
+    flex-basis: calc(100% / 3);
+  }
+
+  header#principal nav {
+    flex-grow: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  header#principal nav ul li {
+    padding: 1rem 1rem 1rem 1rem;
+  }
+
+  header#principal h1 {
+    text-align: center;
+  }
+
+  header#principal div {
+    text-align: right;
+  }
+
+  section#intro p {
+    columns: 2;
+  }
+
+  section#vacalogo ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+  }
+  section#vacalogo ul li {
+    margin: 0 0.5rem;
+  }
+
+  section#vacalogo ul li article header img {
+    width: 100%;
+    height: 100%;
+  }
+
+  section#comprar form {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  section#comprar form fieldset {
+    flex-basis: 50%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 1rem;
+    border-width: 0;
+  }
+
+  section#comprar form fieldset.ancho {
+    flex-basis: 100%;
+  }
+
+  section#comprar form label {
+    font-size: 1.8rem;
+  }
+}
