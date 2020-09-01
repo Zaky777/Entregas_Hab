@@ -1,22 +1,22 @@
 import axios from "axios";
 import jwt from "jwt-decode";
 
-const ENDPOINT = "http://localhost:3051";
+const ENDPOINT = "http://localhost:3003";
 const AUTH_TOKEN_KEY = "authToken";
 const ROLE = "role";
 const ISUSER = "isUser";
 
 //función para logearse
-export function loginUser(email, contraseña) {
+export function loginUser(email, password) {
   return new Promise(async (resolve, reject) => {
     try {
       let res = await axios({
-        url: `${ENDPOINT}/auth`,
+        url: `${ENDPOINT}/usuarios/login`,
         method: "POST",
         data: {
           email: email,
-          contraseña: contraseña,
-          grant_type: "contraseña",
+          password: password,
+          grant_type: "password",
         },
       });
       setAuthToken(res.data.token);
@@ -38,6 +38,12 @@ export function setAuthToken(token) {
 export function clearLogin() {
   axios.defaults.headers.common["Authorization"] = "";
   localStorage.removeItem(AUTH_TOKEN_KEY);
+  localStorage.removeItem("token");
+  localStorage.removeItem("id");
+  localStorage.removeItem("role");
+  localStorage.removeItem("email");
+  localStorage.removeItem("nombre");
+  localStorage.removeItem("isUser");
   clearAdmin();
 }
 //pillar el token
@@ -60,8 +66,14 @@ export function isTokenExpired(token) {
 }
 
 export function isLoggedIn() {
-  let authToken = getAuthToken();
-  return !!authToken && !isTokenExpired(authToken);
+  const token = localStorage.getItem("token");
+  if (token) {
+    return true;
+  } else {
+    return false;
+  }
+  /*  let authToken = getAuthToken();
+  return !!authToken && !isTokenExpired(authToken); */
 }
 
 //funciones para comprobar el rol de user
@@ -81,7 +93,7 @@ export function clearAdmin() {
   return localStorage.removeItem(ROLE);
 }
 export function clearIsUser() {
-  return localStorage.removeItem(ISUSER);
+  return localStorage.removeItem(isUser);
 }
 //funcion q recupera el rol desde el localstorage
 export function getIsAdmin() {
@@ -95,7 +107,7 @@ export function getIsUser() {
 export function checkAdmin() {
   let role = false;
   let admin = getIsAdmin();
-  if (admin === "true") {
+  if (admin === "admin") {
     role = true;
   } else {
     role = false;

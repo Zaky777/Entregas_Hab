@@ -1,8 +1,6 @@
 <template>
 <div class="container">
-  <div class="menu">
-    <menucustom></menucustom>
-  </div>
+  <menucustom></menucustom>
   <!--  INDICANDO EL USO DE bootstrap -->
 
   <div class="bootstrap">
@@ -40,7 +38,7 @@
   -->
   <!-- HAGO UN DIV PARA LA BUSQUEDA-->
 
-  <h1>DESCUBRE TU VIAJE</h1>
+  <h2>DESCUBRE TU VIAJE</h2>
 
   <!-- Formulario para la búsqueda -->
   <div id="busqueda">
@@ -53,31 +51,6 @@
       type="search"
       placeholder=" Lugar, pais, valoracion,..."
     />
-  </div>
-  <!--      
-      ENLACES PARA HACER COSITAS SI ERES USUARIO
-
-  -->
-  <br />
-
-  <div class="dropdown dropleft">
-    <button
-      class="btn btn-secondary dropdown-toggle"
-      type="button"
-      id="dropdownMenuButton"
-      data-toggle="dropdown"
-      aria-haspopup="true"
-      aria-expanded="false"
-    >¿Eres usuario?</button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" href="#">
-        <router-link to="/addViajes">Recomienda tu viaje!</router-link>
-      </a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">
-        <router-link to="/valoraciones">Valora nuestros viajes!</router-link>
-      </a>
-    </div>
   </div>
 
   <!--     MUESTRO LA INFORMACIÓN DE LOS VIAJES -->
@@ -97,11 +70,18 @@
     </ul>
   </div>
 
-  <div class="float-left">
-    <router-link to="/addViajes">¿Eres Usuario? Recomienda tu viaje!</router-link>
+  <div class="votos">
+    <ul id="votos" v-for="(valoracion,index) in valoracion" :key="valoracion.id"></ul>
+    <label for="valoracion">valoracion:</label>
+    <input type="text" name="valoracion" placeholder="valoracion" v-model="valoracion" />
+    <button @click="
+          voteLugar
+        ">Votar</button>
+
+    <br />
   </div>
   <div class="rutaAdd">
-    <router-link to="/valoraciones">¿Eres Usuario? Valora nuestros viajes!</router-link>
+    <router-link to="/addViajes">¿Eres Usuario? Recomienda tu viaje!</router-link>
   </div>
 </div>
 </template>
@@ -118,6 +98,7 @@ export default {
   data() {
     return {
       lugares_experiencias: [],
+      valoracion: [],
       search: "",
     };
   },
@@ -158,16 +139,32 @@ export default {
         });
     },
   },
+  voteLugar(valoracion) {
+    var self = this;
+    axios
+      .post("http://localhost:3003/valoraciones", {
+        valoracion: self.valoracion,
+      })
+      .then(function (response) {
+        self.emptyFields();
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  },
+  emptyFields() {
+    this.valoracion = "";
+    this.$router.push("/");
+  },
   created() {
     this.mostrarLugares();
+    this.voteLugar();
   },
 };
 </script>
 
 <style scoped>
-.menu {
-  height: 100px;
-}
 .container {
   display: flex;
   flex-direction: column;

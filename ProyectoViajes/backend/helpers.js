@@ -36,7 +36,10 @@ async function processAndSavePhoto(uploadedImage) {
 
   // Save image
   await finalImage.toFile(path.join(imageUploadPath, savedFileName));
-
+  console.log(
+    'devuelvo  ' + imageUploadPath,
+    '         .......        ' + savedFileName
+  );
   return savedFileName;
 }
 

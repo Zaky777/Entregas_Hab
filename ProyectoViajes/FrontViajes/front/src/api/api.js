@@ -1,4 +1,4 @@
-const express = require("express");
+/* const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
@@ -18,7 +18,7 @@ const connection = mysql.createConnection({
   host: "localhost",
   user: "antonio",
   password: "patronus",
-  database: "VIAJES_DIFERENTES",
+  database: "VIAJES_5",
 });
 
 connection.connect((error) => {
@@ -26,7 +26,7 @@ connection.connect((error) => {
   console.log("DATABASE UP");
 });
 
-const PORT = 3051;
+const PORT = 3003;
 
 app.listen(PORT, () => console.log("API GUAy"));
 
@@ -209,6 +209,8 @@ app.post("/auth", (req, res) => {
 
   const sql = `SELECT * FROM usuarios WHERE email='${email}' AND contraseña='${contraseña}'`;
   //conexión a la bbdd
+
+  // mirar aqui
   connection.query(sql, (error, results) => {
     console.log("hola");
     let admin = null;
@@ -235,3 +237,4 @@ app.post("/auth", (req, res) => {
     }
   });
 });
+ */

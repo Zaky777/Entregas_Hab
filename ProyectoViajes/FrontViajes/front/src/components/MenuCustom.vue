@@ -1,36 +1,62 @@
 <template>
   <!-- MENU DE NAVEGACIÓN-->
-  <div class="MENU">
-    <ul class="nav nav-pills">
-      <li class="nav-item">
-        <router-link class="nav-link active" href="#" to="/">Home</router-link>
-      </li>
-      <li class="nav-item">
-        <router-link class="nav-link" href="#" to="/about">About</router-link>
-      </li>
-      <li class="nav-item">
-        <router-link class="nav-link" href="#" to="/myUser"
-          >Mi Perfil</router-link
-        >
-      </li>
-      <li class="nav-item">
-        <router-link class="nav-link" href="#" to="/lugares_experiencias">
-          Nuestros viajes
-        </router-link>
-      </li>
-      <li class="nav-item ">
-        <router-link class="nav-link" href="#" to="/usuarios">
-          <p class="text-secondary">Usuarios</p></router-link
-        >
-      </li>
-      <li class="nav-item">
-        <button type="button" class="btn btn-dark" @click="logoutUser()">
-          LogOut
-        </button>
 
-        <div id="nav"></div>
-      </li>
-    </ul>
+  <div class="MENU">
+    <nav class="navbar fixed-top navbar-collapse navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">
+        <router-link
+          class="text-white font-weight-bold nav-link active"
+          href="#"
+          to="/"
+          >Home</router-link
+        ></a
+      >
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="true"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"> </span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <router-link class="nav-link active" href="#" to="/"
+              >Home</router-link
+            >
+          </li>
+          <li class="nav-item active">
+            <router-link class="nav-link" href="#" to="/about"
+              >About</router-link
+            >
+          </li>
+          <li class="nav-item active">
+            <router-link class="nav-link" href="#" to="/myUser"
+              >Mi Perfil</router-link
+            >
+          </li>
+          <li class="nav-item active">
+            <router-link class="nav-link" href="#" to="/lugares_experiencias"
+              >Nuestros viajes</router-link
+            >
+          </li>
+          <li class="nav-item ">
+            <router-link class="nav-link" href="#" to="/usuarios">
+              Usuarios
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <button type="button" class="btn btn-dark" @click="logoutUser()">
+              LogOut
+            </button>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
     <!--  INDICANDO EL USO DE bootstrap -->
     <div class="bootstrap">
@@ -65,16 +91,18 @@
     </body>
 
     <!-- 
-     -->
-  </div>
+  --></div>
 </template>
 
 <script>
 import { clearLogin } from "@/api/utils";
+import vueHeadful from "vue-headful";
 
 export default {
   name: "MenuCustom",
-  components: {},
+  components: {
+    vueHeadful,
+  },
   methods: {
     logoutUser() {
       this.$router.push("/");

@@ -13,6 +13,11 @@ const updateUserSchema = Joi.object().keys({
 
     .error(new Error('El campo debe tener entre 2 y 200 caracteres')),
 
+  email: Joi.string()
+    .email()
+    .required()
+    .error(new Error('El correo electrónico no es válido')),
+
   descripcion: Joi.string()
     .max(1000)
     .min(10)

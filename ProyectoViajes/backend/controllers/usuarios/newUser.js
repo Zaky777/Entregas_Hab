@@ -4,7 +4,9 @@ const bcrypt = require('bcrypt');
 
 const { getConnection } = require('../../db');
 const { newUserSchema } = require('../../validations/usuarios');
-const { generateError, randomString, sendEmail } = require('../../helpers');
+const {
+  generateError /*  sendEmail, randomString */
+} = require('../../helpers');
 
 async function newUser(req, res, next) {
   let connection;
@@ -29,10 +31,11 @@ async function newUser(req, res, next) {
 
     const dbPassword = await bcrypt.hash(password, 10);
 
-    const registrationCode = randomString(40);
-    const validationURL = `${process.env.PUBLIC_HOST}/usuarios/validate?code=${registrationCode}`;
+    /* const registrationCode = randomString(40);
 
-    try {
+    const validationURL = `${process.env.PUBLIC_HOST}/usuarios/validate?code=${registrationCode}`;
+ */
+    /*   try {
       await sendEmail({
         email: email,
         title: 'Debes validar tu cuenta',
@@ -42,11 +45,12 @@ async function newUser(req, res, next) {
       console.error(error);
       throw new Error('Error al enviar el correo electrónico..');
     }
-
+ */
     await connection.query(
-      `INSERT INTO USUARIOS ( nombre, apellidos, email, password, url_foto, descripcion,fecha_registro, role, registrationCode, fecha_creacion_tabla, fecha_modificacion_tabla)
-      VALUES (?,?,?,?,?,?,?,?.?.${registrationCode}NOW(),NOW()) `,
-      [nombre, apellidos, email, dbPassword]
+      `INSERT INTO usuarios (nombre,apellidos,email,password, fecha_registro,role)
+      VALUES(?,?,?,?,NOW(),'user')`,
+
+      [nombre, apellidos, email, dbPassword /* , registrationCode */]
     );
 
     res.send({
@@ -56,6 +60,7 @@ async function newUser(req, res, next) {
     });
   } catch (error) {
     next(error);
+    console.log(error);
   } finally {
     if (connection) {
       connection.release();

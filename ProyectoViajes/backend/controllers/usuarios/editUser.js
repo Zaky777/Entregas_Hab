@@ -15,14 +15,15 @@ async function editUser(req, res, next) {
     connection = await getConnection();
     const { id } = req.params;
 
-    const { nombre, apellidos, descripcion } = req.body;
+    const { nombre, apellidos, email, descripcion } = req.body;
 
     const [
       current
     ] = await connection.query(
-      `SELECT id, url_foto  FROM USUARIOS  WHERE id =?`,
+      `SELECT id, url_foto  FROM usuarios  WHERE id =?`,
       [id]
     );
+    console.log(current);
 
     if (!current.length) {
       throw generateError(`El usuario con id  ${id} no existe`, 404);
@@ -50,8 +51,8 @@ async function editUser(req, res, next) {
     }
 
     await connection.query(
-      ` UPDATE USUARIOS SET nombre=?, apellidos =?, descripcion=?, url_foto =? WHERE id=?`,
-      [nombre, apellidos, descripcion, savedFileName, id]
+      ` UPDATE usuarios SET nombre=?, apellidos=?, email=?, descripcion=?, url_foto=? WHERE id=?`,
+      [nombre, apellidos, email, descripcion, savedFileName, id]
     );
 
     res.send({
@@ -60,6 +61,7 @@ async function editUser(req, res, next) {
     });
   } catch (error) {
     next(error);
+    console.log(error);
   } finally {
     if (connection) connection.release();
   }

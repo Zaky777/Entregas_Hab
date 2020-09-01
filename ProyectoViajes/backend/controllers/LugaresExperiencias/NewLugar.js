@@ -13,30 +13,32 @@ async function newLugar(req, res, next) {
   try {
     connection = await getConnection();
     await newLugarSchema.validateAsync(req.body);
-    const { id } = req.auth;
-    const { localizacion, fotos, pais, enclaves_de_interes, fecha } = req.body;
+    const { id } = req.body;
+    const { localizacion, pais, enclaves_de_interes } = req.body;
 
     const [
       current
     ] = await connection.query(
-      ` SELECT id, imagen FROM lugares_experiencias WHERE id=?`,
+      ` SELECT id, fotos FROM lugares_experiencias WHERE id=?`,
       [id]
     );
 
     let savedFileName;
+    console.log(req.files);
+    console.log(req.files.fotos);
 
-    if (req.files && req.files.imagen) {
+    if (req.files && req.files.fotos) {
       try {
-        savedFileName = await processAndSavePhoto(req.files.imagen);
+        savedFileName = await processAndSavePhoto(req.files.fotos);
 
-        if (current && current.imagen) {
-          await deletePhoto(current.imagen);
+        if (current && current.fotos) {
+          await deletePhoto(current.fotos);
         }
       } catch (error) {
         throw generateError('No se puede procesar la imagen. ', 400);
       }
     } else {
-      savedFileName = current.imagen;
+      savedFileName = current[0].fotos;
     }
 
     const [
@@ -49,10 +51,10 @@ async function newLugar(req, res, next) {
       throw generateError('Este viaje ya existe', 409);
     }
     await connection.query(
-      `INSERT INTO lugares_experiencias (id,localizacion,fotos,pais, enclaves_de_interes)
-      VALUES  (?,?,?,?,?,?,?,NOW())`,
+      `INSERT INTO lugares_experiencias (id,localizacion,fotos,pais, enclaves_de_interes, fecha, id_usuario)
+      VALUES  (?,?,?,?,?,NOW(),?)`,
 
-      [id, localizacion, fotos, pais, enclaves_de_interes]
+      [id, localizacion, savedFileName, pais, enclaves_de_interes]
     );
 
     res.send({
@@ -61,6 +63,7 @@ async function newLugar(req, res, next) {
     });
   } catch (error) {
     next(error);
+    console.log(error);
   } finally {
     if (connection) {
       connection.release();

@@ -33,7 +33,7 @@ async function updatePassword(req, res, next) {
     // Sacar la info del usuario de la base de datos
     const [currentUser] = await connection.query(
       `
-      SELECT id, password from USUARIOS where id=?
+      SELECT id, password from usuarios where id=?
       `,
       [id]
     );
@@ -47,7 +47,7 @@ async function updatePassword(req, res, next) {
     // Comprobar que la vieja password envíada sea la correcta
     // el orden es: passord sin encriptar, password encriptada
     const passwordsMath = await bcrypt.compare(oldPassword, dbUser.password);
-
+    console.log(dbUser);
     if (!passwordsMath) {
       throw generateError('Tu password antigua es incorrecta', 401);
     }
@@ -58,7 +58,7 @@ async function updatePassword(req, res, next) {
     // actualizar la base de datos
     await connection.query(
       `
-      UPDATE USUARIOS SET password=?, fecha_modificacion_password= NOW() WHERE id=?
+      UPDATE usuarios SET password=?,lastPasswordUpdate=NOW() WHERE id=?
     `,
       [dbNewPassword, id]
     );
@@ -69,6 +69,7 @@ async function updatePassword(req, res, next) {
     });
   } catch (error) {
     next(error);
+    console.log(error);
   } finally {
     if (connection) connection.release();
   }

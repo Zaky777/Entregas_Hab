@@ -12,14 +12,13 @@ async function loginUser(req, res, next) {
 
   try {
     await loginSchema.validateAsync(req.body);
-
     const { email, password } = req.body;
     connection = await getConnection();
     const [
       dbUser
     ] = await connection.query(
-      'SELECT id, nombre, email, password, role  FROM usuarios WHERE email=? AND active=true',
-      [email]
+      'SELECT id, nombre, email, password, role  FROM usuarios WHERE email=? AND active=1',
+      [email, password]
     );
 
     if (!dbUser.length) {
@@ -29,19 +28,19 @@ async function loginUser(req, res, next) {
       );
     }
 
-    const [user] = dbUser;
+    const [usuario] = dbUser;
 
-    /*  const passwordsMath = await bcrypt.compare(password, user.password); */
-    /* 
+    console.log(usuario);
+    const passwordsMath = await bcrypt.compare(password, usuario.password);
+
     if (!passwordsMath) {
       throw generateError('Password false', 401);
-    } */
-    console.log(user);
+    }
     const tokenPayload = {
-      id: user.id,
-      nombre: user.nombre,
-      email: user.email,
-      role: user.role
+      id: usuario.id,
+      nombre: usuario.nombre,
+      email: usuario.email,
+      role: usuario.role
     };
     const token = jwt.sign(tokenPayload, process.env.SECRET, {
       expiresIn: '60d'
@@ -50,10 +49,10 @@ async function loginUser(req, res, next) {
     res.send({
       status: 'ok',
       message: 'Login okey!',
-      email: user.email,
-      id: user.id,
-      nombre: user.nombre,
-      role: user.role,
+      email: usuario.email,
+      id: usuario.id,
+      nombre: usuario.nombre,
+      role: usuario.role,
       data: { token }
     });
   } catch (error) {

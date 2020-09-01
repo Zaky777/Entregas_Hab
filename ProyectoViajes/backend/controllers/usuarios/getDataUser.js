@@ -24,7 +24,11 @@ async function getUser(req, res, next) {
 
     let payload = {};
 
-    if (userData.id_usuario === req.auth.id || req.auth.role === 'admin') {
+    if (
+      userData.id_usuario === req.auth.id ||
+      req.auth.role === 'admin' ||
+      req.auth.role === 'user'
+    ) {
       payload.nombre = userData.nombre;
       payload.apellidos = userData.apellidos;
       payload.email = userData.email;
@@ -40,6 +44,7 @@ async function getUser(req, res, next) {
 
       data: payload
     });
+    console.log(payload);
   } catch (error) {
     next(error);
   } finally {

@@ -1,76 +1,64 @@
 <template>
-  <div class="container">
-    <div class="w-auto p-3" style="background-color: #eee;">
-      <menucustom></menucustom>
+<div class="container">
+  <div class="w-auto p-3" style="background-color: #eee;">
+    <menucustom></menucustom>
 
-      <!--  INDICANDO EL USO DE bootstrap -->
+    <!--  INDICANDO EL USO DE bootstrap -->
 
-      <div class="bootstrap">
-        <link
-          rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-          crossorigin="anonymous"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </div>
-
-      <body>
-        <script
-          type="application/javascript"
-          src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-          integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-          crossorigin="anonymous"
-        ></script>
-        <script
-          type="application/javascript"
-          src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-          integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-          crossorigin="anonymous"
-        ></script>
-        <script
-          type="application/javascript"
-          src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-          integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-          crossorigin="anonymous"
-        ></script>
-      </body>
-
-      <!-- 
-     -->
-
-      <!-- formulario edición -->
-
-      <div class="listausuarios" v-show="true">
-        <listausuarios
-          :usuarios="usuarios"
-          v-on:editar="showEditUsers"
-          v-on:borrar="deleteUser"
-        ></listausuarios>
-      </div>
-      <div class="editar" v-show="editar">
-        <input type="text" v-model="newNombre" name="nombre" />
-        <input type="text" v-model="newApellidos" name="apellidos" />
-        <input
-          type="text"
-          v-model="newFecha_nacimiento"
-          name="fecha_nacimiento"
-        />
-        <input type="text" v-model="newAlias" name="alias" />
-        <input type="text" v-model="newEmail" name="email" />
-        <input type="password" v-model="newContraseña" name="contraseña" />
-        <input
-          type="text"
-          v-model="newLugares_visitados"
-          name="lugares_visitados"
-        />
-        <input type="text" v-model="newFoto_perfil" name="foto_perfil" />
-
-        <!-- Botón que llama a la función de modificar -->
-      </div>
-      <button @click="editUser()">MODIFICAR</button>
+    <div class="bootstrap">
+      <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+        crossorigin="anonymous"
+      />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </div>
+
+    <body>
+      <script
+        type="application/javascript"
+        src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        type="application/javascript"
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        type="application/javascript"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"
+      ></script>
+    </body>
+
+    <!-- 
+    -->
+
+    <!-- formulario edición -->
+
+    <div class="listausuarios" v-show="true">
+      <listausuarios :usuarios="usuarios" v-on:editar="showEditUsers" v-on:borrar="deleteUser"></listausuarios>
+    </div>
+    <div class="editar" v-show="editar">
+      <input type="text" v-model="newNombre" name="nombre" />
+      <input type="text" v-model="newApellidos" name="apellidos" />
+      <input type="text" v-model="newFecha_nacimiento" name="fecha_nacimiento" />
+      <input type="text" v-model="newAlias" name="alias" />
+      <input type="text" v-model="newEmail" name="email" />
+      <input type="password" v-model="newContraseña" name="contraseña" />
+      <input type="text" v-model="newLugares_visitados" name="lugares_visitados" />
+      <input type="text" v-model="newFoto_perfil" name="foto_perfil" />
+
+      <!-- Botón que llama a la función de modificar -->
+    </div>
+    <button @click="editUser()">MODIFICAR</button>
   </div>
+</div>
 </template>
 
 <script>
@@ -106,14 +94,14 @@ export default {
     mostrarUsuarios() {
       var self = this;
       axios
-        .get("http://localhost:3051/usuarios")
+        .get("http://localhost:3003/usuarios/getUsuarios")
         // SI TODOO OK
-        .then(function(response) {
+        .then(function (response) {
           console.log(response);
-          self.usuarios = response.data;
+          self.usuarios = response.data.data;
         })
         // SI SALE MAL
-        .catch(function(error) {
+        .catch(function (error) {
           console.log(error);
         });
     },
@@ -148,7 +136,7 @@ export default {
           foto_perfil: self.newFoto_perfil,
         })
         //SI SALE BIEN
-        .then(function(response) {
+        .then(function (response) {
           Swal.fire({
             title: "okey",
             text: "Usuario editado!",
@@ -157,7 +145,7 @@ export default {
           location.reload();
         })
         //SI SALE MAL
-        .catch(function(error) {
+        .catch(function (error) {
           console.log(error);
         });
     },
@@ -168,7 +156,7 @@ export default {
         // Hacemos una petición delete.
         .delete("http://localhost:3051/usuarios/del/" + data)
         //SI SALE BIEN
-        .then(function(response) {
+        .then(function (response) {
           Swal.fire({
             title: "okey",
             text: "Usuario borrado",
@@ -177,7 +165,7 @@ export default {
           location.reload();
         })
         //SI SALE MAL
-        .catch(function(error) {
+        .catch(function (error) {
           console.error(error);
         });
     },

@@ -81,6 +81,14 @@ const routes = [
     },
   },
   {
+    path: "/valoraciones",
+    name: "rating",
+    component: () => import("../views/rating.vue"),
+    meta: {
+      allowAnonymous: false,
+    },
+  },
+  {
     path: "/myUser",
     name: "MyUser",
     component: () => import("../views/MyPerfil.vue"),
