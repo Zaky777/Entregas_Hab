@@ -39,14 +39,14 @@
   -->
   <vue-headful title="Mi perfil" description="mi perfil" />
   <menucustom></menucustom>
-  <div class="bienvenido">
-    <h2>Bienvenido! {{ usuario.nombre }}</h2>
-    <div class="informacionUsuario">
+  <div class="jumbotron">
+    <h1 class="display-4" style="height:12rem; width: 12rem;">Bienvenido! {{ usuario.nombre }}</h1>
+    <div class="lead">
       <div class="img">
         <img class="mr-3" :src="usuario.url_foto" alt="Foto de perfil de usuario" />
       </div>
-
-      <ul>Tus datos:</ul>
+      <hr class="my-4" />
+      <h2>Nombre y apellidos</h2>
       <ul>
         {{
         usuario.nombre
@@ -55,18 +55,19 @@
         usuario.apellidos
         }}
       </ul>
-      <ul>
-        Correo:
-        {{
-        usuario.email
-        }}
-      </ul>
-      <ul>
-        foto:
-        {{
-        usuario.url_foto
-        }}
-      </ul>
+
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button
+          type="button"
+          class="btn btn-primary btn-dark"
+          @click="showEditPerfil()"
+        >Edita tu perfil</button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          @click="showEditPassword()"
+        >Cambia tu contraseña</button>
+      </div>
     </div>
   </div>
 
@@ -74,10 +75,6 @@
     BOTONES!!
 
   -->
-  <div class="btn-group" role="group" aria-label="Basic example">
-    <button type="button" class="btn btn-secondary" @click="showEditPerfil()">Edita tu perfil</button>
-    <button type="button" class="btn btn-secondary" @click="showEditPassword()">Cambia tu contraseña</button>
-  </div>
   <div class="botones">
     <h1 class="tituloVotaciones">
       ¿Has visitado alguno de nuestros viajes?
@@ -121,8 +118,14 @@
       <br />
       <input type="text" v-model="newDescripcion" placeholder="Descripcion" />
       <br />
-      <button @click="editUsuario()">Confirmar</button>
-      <button @click="showEdit = false">Atras</button>
+      <br />
+      <br />
+      <button class="btn btn-primary" @click="editUsuario()">Confirmar</button>
+      <button class="btn btn-secondary" @click="showEdit = false">Atras</button>
+      <br />
+      <br />
+      <br />
+      <br />
     </form>
   </div>
   <div class="editPassword" v-show="seeEditPassword">
@@ -142,6 +145,9 @@
     </form>
     <button @click="editPassword()">Editar</button>
     <button class="passwordBack" @click="seeEditPassword = false">Volver</button>
+    <br />
+    <br />
+    <br />
   </div>
   <!-- 
 
@@ -156,38 +162,34 @@ MODAL BOOTSTRAP
 
 
   -->
-  <div>
-    <div class="Mostrar y Votar" v-show="seeVote">
-      <h2 class="tituloViajes">Nuestros viajes</h2>
-      <button class="votarBack" @click="seeVote = false">Volver</button>
-      <br />
-      <ul v-for="lugar in lugares_experiencias" :key="lugar.id">
-        <li>Lugar: {{ lugar.localizacion }}</li>
-        <li>País:{{ lugar.pais }}</li>
-
-        <h2>Valora Este Viaje!</h2>
-        <br />
-        <br />
-        <button @click="openModal(lugar)">Valora este viaje</button>
-      </ul>
-      <div v-show="modal">
-        <div class="modalBox">
-          <star-rating
-            @rating-selected="valoracion = $event"
-            :rating="rating"
-            v-bind:star-size="33"
-          ></star-rating>
-          <h3>Haz un comentario!</h3>
-
-          <textarea v-model="comentario" name="comentario" id="comentario" cols="30" rows="10"></textarea>
-          <br />
-          <button @click="votarViaje(lugarVotado, valoracion,comentario)">Valora Este Viaje!</button>
-          <button @click="closeModal()">Volver</button>
+  <div class="Mostrar y Votar" v-show="seeVote">
+    <h2 class="title">Nuestros viajes</h2>
+    <button class="votarBack" @click="seeVote = false">Volver</button>
+    <div class="row row-cols-1 row-cols-md-2">
+      <div v-for="lugar in lugares_experiencias" :key="lugar.id" class="card" style="width: 18rem;">
+        <img :src="lugar.fotos" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">{{ lugar.localizacion }}</h5>
+          <p class="card-text">País:{{ lugar.pais }}</p>
+          <p class="card-text">Sitios de interes:{{ lugar.enclaves_de_interes }}</p>
+          <a href="#" class="btn btn-primary" @click="openModal(lugar)">Vota este viaje</a>
         </div>
+      </div>
+    </div>
+    <div v-show="modal">
+      <div class="modalBox">
+        <star-rating @rating-selected="valoracion = $event" :rating="rating" v-bind:star-size="33"></star-rating>
+        <h3>Haz un comentario!</h3>
+
+        <textarea v-model="comentario" name="comentario" id="comentario" cols="30" rows="10"></textarea>
+        <br />
+        <button @click="votarViaje(lugarVotado, valoracion,comentario)">Valora Este Viaje!</button>
+        <button @click="closeModal()">Volver</button>
       </div>
     </div>
   </div>
   <!-- 
+
   -->
 </div>
 </template>
@@ -268,6 +270,8 @@ export default {
         // SI TODOO OK
         .then(function (response) {
           self.lugares_experiencias = response.data.data.map((lugar) => {
+            lugar.fotos = "http://localhost:3003/uploads/" + lugar.fotos;
+
             return lugar;
           });
           console.log(response);
@@ -375,8 +379,8 @@ export default {
         });
 
       Swal.fire({
-        title: "!!",
-        text: "Debes introducir los datos para tu inicio de sesión.",
+        title: "Perfecto!",
+        text: "Sabia opinión",
         confirmButtonText: "O.K",
         confirmButtonColor: "#42f5e3",
         width: "900px",
@@ -427,7 +431,7 @@ export default {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  box-shadow: 0 0 100px rgb(5, 86, 179);
+  box-shadow: 0 0 100px rgb(17, 18, 20);
   height: 100%;
   width: 100%;
   padding: 2rem;

@@ -1,107 +1,86 @@
 <template>
-  <div>
-    <!--Encabezado de página -->
-    <h2>USUARIOS DE VIAJES DIFERENTES:</h2>
+<div>
+  <br />
+  <br />
+  <br />
+  <br />
+  <!--Encabezado de página -->
+  <h2>USUARIOS DE VIAJES DIFERENTES:</h2>
 
-    <!-- Formulario para la búsqueda -->
-    <div id="formulario">
-      <label for="bySearch">Busca nuestro usuario...</label>
-      <br />
-      <input
-        v-model="search"
-        id="search"
-        name="bySearch"
-        type="search"
-        placeholder="Nombre, apellidos, alias, email... "
-      />
-    </div>
-    <!--  INDICANDO EL USO DE bootstrap -->
+  <!-- Formulario para la búsqueda -->
 
-    <div class="bootstrap">
-      <link
-        rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-        crossorigin="anonymous"
-      />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    </div>
+  <!--  INDICANDO EL USO DE bootstrap -->
 
-    <body>
-      <script
-        type="application/javascript"
-        src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"
-      ></script>
-      <script
-        type="application/javascript"
-        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"
-      ></script>
-      <script
-        type="application/javascript"
-        src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"
-      ></script>
-    </body>
+  <div class="bootstrap">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </div>
 
-    <!-- 
-     -->
-    <div
-      class="card mb-3"
-      style="max-width: 540px
+  <body>
+    <script
+      type="application/javascript"
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      type="application/javascript"
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      type="application/javascript"
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+
+  <!-- 
+  -->
+  <div
+    class="card mb-3"
+    style="max-width: 540px
 "
-      v-for="(usuario, index) in filteredUser"
-      :key="usuario.id"
-    >
-      <div class="row no-gutters">
-        <div class="col-md-4">
-          <img :src="usuario.foto_perfil" class="card-img" alt="img usuario" />
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title">Lista Usuarios</h5>
+    v-for="(usuario, index) in filteredUser"
+    :key="usuario.id"
+  >
+    <div class="row no-gutters">
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">Lista Usuarios</h5>
 
-            <br />
-            <h5>ID: {{ usuario.id }}</h5>
-            <br />
-            <h5>nombre: {{ usuario.nombre }}</h5>
-            <br />
-            <h5>apellidos: {{ usuario.apellidos }}</h5>
-            <br />
-            <h5>Fecha Nacimiento: {{ usuario.fecha_nacimiento }}</h5>
-            <br />
-            <h5>alias: {{ usuario.alias }}</h5>
-            <br />
-            <h5>email: {{ usuario.email }}</h5>
-            <br />
-            <h5>contraseña: {{ usuario.contraseña }}</h5>
-            <br />
-            <h5>Lugares visitados: {{ usuario.lugares_visitados }}</h5>
-            <br />
-            <br />
-            <button
-              type="button"
-              class="btn btn-success"
-              @click="editUserEvent(index)"
-            >
-              EDITAR
-            </button>
-            <button
-              type="button"
-              class="btn btn-danger"
-              @click="deleteUserEvent(index)"
-            >
-              BORRAR
-            </button>
-          </div>
+          <br />
+          <h5>ID: {{ usuario.id }}</h5>
+          <br />
+          <h5>nombre: {{ usuario.nombre }}</h5>
+          <br />
+          <h5>apellidos: {{ usuario.apellidos }}</h5>
+          <br />
+          <h5>Fecha Nacimiento: {{ usuario.fecha_nacimiento }}</h5>
+          <br />
+          <h5>alias: {{ usuario.alias }}</h5>
+          <br />
+          <h5>email: {{ usuario.email }}</h5>
+          <br />
+          <h5>contraseña: {{ usuario.contraseña }}</h5>
+          <br />
+          <h5>Lugares visitados: {{ usuario.lugares_visitados }}</h5>
+          <br />
+          <br />
+          <!--    <button type="button" class="btn btn-success" @click="editUserEvent(index)">EDITAR</button> -->
+          <button type="button" class="btn btn-danger" @click="deleteUserEvent(index)">BORRAR</button>
         </div>
       </div>
     </div>
-    <!--   <div
+  </div>
+  <!--   <div
       class="card text-center"
       style="width:18rem"
       v-for="(usuario, index) in filteredUser"
@@ -128,13 +107,13 @@
         <br />
         <p>Lugares visitados: {{ usuario.lugares_visitados }}</p>
         <br />
-        <br /> -->
-    <!--Eventos de botón para ser escuchados -->
-    <!-- <button @click="editUserEvent(index)">EDITAR</button>
+  <br />-->
+  <!--Eventos de botón para ser escuchados -->
+  <!-- <button @click="editUserEvent(index)">EDITAR</button>
         <button @click="deleteUserEvent(index)">BORRAR</button>
       </div>
-    </div> -->
-  </div>
+  </div>-->
+</div>
 </template>
 
 <script>

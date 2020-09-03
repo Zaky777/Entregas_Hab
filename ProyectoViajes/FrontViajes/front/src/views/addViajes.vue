@@ -50,22 +50,18 @@
         <label for="file">Selecciona tus fotos.</label>
         <input type="file" id="fotos" name="fotos" ref="fotos" @change="handleFileUpload()" />
       </div>
-      <div class="col"></div>
     </div>
-    <br />
     <br />
     <div class="form-row">
       <div class="col">
         <label for="localizacion">Localización:</label>
         <input type="text" name="localizacion" placeholder="lugar del viaje" v-model="localizacion" />
-        <br />
       </div>
       <div class="col">
         <label for="pais">País:</label>
-        <input type="text" name="pais" placeholder="pais del usuario" v-model="pais" />
         <br />
+        <input type="text" name="pais" placeholder="pais del usuario" v-model="pais" />
       </div>
-
       <div class="col">
         <label for="enclaves_de_interes">Enclaves de Interés:</label>
         <input
@@ -74,31 +70,15 @@
           placeholder="enclaves del lugar"
           v-model="enclaves_de_interes"
         />
-        <br />
       </div>
       <div class="col">
         <label for="fecha">Fecha:</label>
-        <input type="text" name="fecha" placeholder="fecha del viaje" v-model="fecha" />
         <br />
+        <input type="text" name="fecha" placeholder="fecha del viaje" v-model="fecha" />
       </div>
     </div>
-    <div class="form-group form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-      <label class="form-check-label" for="exampleCheck1">Dispuesto a comenzar la aventura!</label>
-    </div>
-    <button
-      type="submit"
-      class="btn btn-primary"
-      @click="
-          createViaje(
-            localizacion,
-            fotos,
-            pais,
-           enclaves_de_interes,
-            fecha
-          )
-        "
-    >Registra tu aventura</button>
+    <br />
+    <button type="submit" class="btn btn-primary" @click="createViaje()">Registra tu aventura</button>
   </form>
 </div>
 </template>
@@ -106,6 +86,7 @@
 <script>
 import axios from "axios";
 import menucustom from "@/components/MenuCustom.vue";
+import Swal from "sweetalert2";
 export default {
   name: "addViajes",
   components: {
@@ -145,6 +126,7 @@ export default {
     createViaje() {
       this.validatingData();
       const self = this;
+      const data = localStorage.getItem("id");
       const token = localStorage.getItem("token");
       let formData = new FormData();
       formData.append("fotos", self.fotos);
@@ -155,13 +137,14 @@ export default {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       axios
         .post(
-          "http://localhost:3003/lugares_experiencias",
+          "http://localhost:3003/lugares",
           formData,
           {
-            fotos: self.fotos,
             localizacion: self.localizacion,
+            fotos: self.fotos,
             pais: self.pais,
             enclaves_de_interes: self.enclaves_de_interes,
+            fecha: self.fecha,
           },
           {
             headers: {
@@ -175,14 +158,14 @@ export default {
             title: "Viaje creado con exito, gracias!",
             timer: "3000",
           });
-          self.emptyProduct();
-          self.seeProduct = false;
+          self.emptyFields();
         })
         .catch(function (error) {
           console.error(error.response.data.message);
+          console.log(error);
         });
     },
-    /*   registroViaje(
+    /*  registroViaje(
       localizacion,
       fotos,
       pais,
@@ -194,9 +177,9 @@ export default {
       if (this.correctData === true) {
         var self = this;
         axios
-          .post("http://localhost:3003/lugares_experiencias", {
+          .post("http://localhost:3003/lugares", {
             localizacion: self.localizacion,
-            fotos: (self.fotos = "http://localhost:3003/uploads/" + self.fotos),
+            fotos: self.fotos,
             pais: self.pais,
             valoracion_media: self.valoracion_media,
             enclaves_de_interes: self.enclaves_de_interes,

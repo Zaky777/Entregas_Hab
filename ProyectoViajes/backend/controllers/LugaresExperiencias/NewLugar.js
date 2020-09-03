@@ -5,21 +5,21 @@ const {
   processAndSavePhoto,
   deletePhoto
 } = require('../../helpers');
-const { newLugarSchema } = require('../../validations/lugares_experiencias');
-
+/* const { newLugarSchema } = require('../../validations/lugares_experiencias');
+ */
 async function newLugar(req, res, next) {
   let connection;
 
   try {
     connection = await getConnection();
-    await newLugarSchema.validateAsync(req.body);
-    const { id } = req.body;
-    const { localizacion, pais, enclaves_de_interes } = req.body;
+    /* await newLugarSchema.validateAsync(req.body); */
+    const { id } = req.params;
+    const { localizacion, pais, enclaves_de_interes, fecha } = req.body;
 
     const [
       current
     ] = await connection.query(
-      ` SELECT id, fotos FROM lugares_experiencias WHERE id=?`,
+      ` SELECT id FROM lugares_experiencias WHERE id=?`,
       [id]
     );
 
@@ -51,10 +51,13 @@ async function newLugar(req, res, next) {
       throw generateError('Este viaje ya existe', 409);
     }
     await connection.query(
-      `INSERT INTO lugares_experiencias (id,localizacion,fotos,pais, enclaves_de_interes, fecha, id_usuario)
-      VALUES  (?,?,?,?,?,NOW(),?)`,
-
-      [id, localizacion, savedFileName, pais, enclaves_de_interes]
+      `INSERT INTO lugares_experiencias (id,localizacion,fotos,pais, enclaves_de_interes, fecha)
+      VALUES  (?,
+        ?,
+        ?,
+        ?,
+        ?, ?)`,
+      [id, localizacion, savedFileName, pais, enclaves_de_interes, fecha]
     );
 
     res.send({

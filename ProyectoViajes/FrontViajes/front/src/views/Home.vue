@@ -113,6 +113,7 @@
   </div>
   <br />
   <br />
+
   <div class="mx-auto" style="width: 200px;">
     <footercustom></footercustom>
   </div>
@@ -126,6 +127,7 @@ import registro from "@/views/registro.vue";
 import lugares from "@/views/lugares_experiencias.vue";
 import menucustom from "@/components/MenuCustom.vue";
 import footercustom from "@/components/FooterCustom.vue";
+
 export default {
   name: "Home",
   components: {

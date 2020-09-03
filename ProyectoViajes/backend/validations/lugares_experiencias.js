@@ -2,21 +2,17 @@ const Joi = require('@hapi/joi').extend(require('@hapi/joi-date'));
 const { generateError } = require('../helpers');
 
 const newLugarSchema = Joi.object().keys({
-  descripcion: Joi.string()
-    .max(1000)
-    .required()
-    .error(generateError('Máximo más de 1000 caracteres', 400)),
-
   localizacion: Joi.string()
     .max(1000)
     .required()
     .error(generateError('Lugar incorrecto', 400)),
+  fotos: Joi.required(),
 
   pais: Joi.string()
     .max(100)
     .required()
     .error(generateError('debes introducir un pais que exista', 400)),
-
+  enclaves_de_interes: Joi.string().max(7000).required(),
   fecha: Joi.date()
     .format('YYYY-MM-DD')
     .utc()

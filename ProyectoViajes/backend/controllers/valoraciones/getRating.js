@@ -8,9 +8,10 @@ async function getRating(req, res, next) {
 
     const [
       valoracion
-    ] = await connection.query('SELECT * from valoracion WHERE id_lugar=?', [
-      id
-    ]);
+    ] = await connection.query(
+      'SELECT id_lugar, comentario, avg(v.valoracion) as valoracion from valoracion WHERE id_lugar=?',
+      [id]
+    );
 
     connection.release();
 

@@ -43,7 +43,7 @@
   <h1>DESCUBRE TU VIAJE</h1>
 
   <!-- Formulario para la búsqueda -->
-  <div id="busqueda">
+  <!-- <div id="busqueda">
     <label for="bySearch">Búsqueda</label>
     <br />
     <input
@@ -53,7 +53,7 @@
       type="search"
       placeholder=" Lugar, pais, valoracion,..."
     />
-  </div>
+  </div>-->
   <!--      
       ENLACES PARA HACER COSITAS SI ERES USUARIO
 
@@ -61,47 +61,48 @@
   <br />
 
   <div class="dropdown dropleft">
-    <button
-      class="btn btn-secondary dropdown-toggle"
-      type="button"
-      id="dropdownMenuButton"
-      data-toggle="dropdown"
-      aria-haspopup="true"
-      aria-expanded="false"
-    >¿Eres usuario?</button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" href="#">
-        <router-link to="/addViajes">Recomienda tu viaje!</router-link>
-      </a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">
-        <router-link to="/valoraciones">Valora nuestros viajes!</router-link>
-      </a>
+    <button class="btn btn-secondary" type="button">
+      <router-link class="text-white" to="/addViajes">¿Eres usuario? Recomienda tu viaje!</router-link>
+    </button>
+  </div>
+  <!-- 
+MUESTRO INFORMACION DE LOS VIAJES
+  -->
+
+  <div class="row row-cols-1 row-cols-md-3">
+    <div v-for="lugares in lugares_experiencias" :key="lugares.id" class="card border-dark h-100">
+      <div class="col mb-4">
+        <img :src="lugares.fotos" alt="..." class="card-img-top" />
+
+        <div class="card-body">
+          <h5 class="card-title text-center">
+            Localización:
+            <br />
+            <br />
+            {{ lugares.localizacion }}
+          </h5>
+          <p class="card-text">
+            País:
+            {{ lugares.pais }}
+          </p>
+          <p class="card-text">
+            Sitios de interes:
+            <br />
+            {{ lugares.enclaves_de_interes }}
+          </p>
+          <!-- <p class="card-text">Fecha: {{ lugares.fecha }}</p> -->
+          <div class="card-footer h-100">
+            <star-rating
+              v-bind:show-rating="false"
+              inactive-color="#fff"
+              read-only
+              v-model=" lugares.valoracion_media"
+              class="list-group-item"
+            >Valoración de nuestra gente: {{ lugares.valoracion_media}}</star-rating>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-
-  <!--     MUESTRO LA INFORMACIÓN DE LOS VIAJES -->
-  <div
-    class="card"
-    style="width: 18rem;"
-    v-for="(lugares, index) in filteredViajes"
-    :key="lugares.id"
-  >
-    <img :src="lugares.fotos" class="card-img-top" alt="..." />
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">Localización: {{ lugares.localizacion }}</li>
-      <li class="list-group-item">País: {{ lugares.pais }}</li>
-      <li class="list-group-item">Valoración de nuestra gente: {{ lugares.valoracion_media }}</li>
-      <li class="list-group-item">Enclaves de Interes: {{ lugares.enclaves_de_interes }}</li>
-      <li class="list-group-item">Fecha: {{ lugares.fecha }}</li>
-    </ul>
-  </div>
-
-  <div class="float-left">
-    <router-link to="/addViajes">¿Eres Usuario? Recomienda tu viaje!</router-link>
-  </div>
-  <div class="rutaAdd">
-    <router-link to="/valoraciones">¿Eres Usuario? Valora nuestros viajes!</router-link>
   </div>
 </div>
 </template>
@@ -109,21 +110,27 @@
 <script>
 import axios from "axios";
 import menucustom from "@/components/MenuCustom.vue";
+import StarRating from "vue-star-rating";
 
 export default {
   name: "lugares_experiencias",
   components: {
     menucustom,
+    StarRating,
   },
   data() {
     return {
       lugares_experiencias: [],
-      search: "",
+      lugares: {},
+      fotos: [],
+      valoracion_media: {},
+
+      /*   search: "", */
     };
   },
   computed: {
     // Función para filtrar clientes en función del texto en el campo de búsqueda, si no hay nada, nos lo devuelve todo.
-    filteredViajes() {
+    /*   filteredViajes() {
       if (!this.search) {
         return this.lugares_experiencias;
       }
@@ -140,7 +147,7 @@ export default {
             .toLowerCase()
             .includes(this.search.toLowerCase())
       );
-    },
+    }, */
   },
   methods: {
     mostrarLugares() {
@@ -150,6 +157,10 @@ export default {
         // SI TODOO OK
         .then(function (response) {
           self.lugares_experiencias = response.data.data;
+          self.lugares_experiencias = response.data.data.map((lugares) => {
+            lugares.fotos = "http://localhost:3003/uploads/" + lugares.fotos;
+            return lugares;
+          });
           console.log(response);
         })
         // SI SALE MAL
