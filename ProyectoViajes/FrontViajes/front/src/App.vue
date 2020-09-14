@@ -1,22 +1,21 @@
 <template>
-  <div class="container-sm">
+  <div>
     <div id="app">
       <div id="nav"></div>
       <router-view />
-    </div>
-    <div class="mx-auto" style="width: 200px;">
-      <footercustom></footercustom>
     </div>
   </div>
 </template>
 <script>
 import { clearLogin } from "./api/utils";
 import footercustom from "@/components/FooterCustom.vue";
+import menucustom from "@/components/MenuCustom.vue";
 
 export default {
   name: "app",
   components: {
     footercustom,
+    menucustom,
   },
 
   methods: {
@@ -30,4 +29,12 @@ export default {
 </script>
 
 <style scoped>
+/* .banner {
+  height: 100vh;
+  width: 100%;
+  background: url("tur.jpg");
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+} */
 </style>

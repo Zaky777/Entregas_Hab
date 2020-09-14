@@ -2,7 +2,7 @@
 <!-- MENU DE NAVEGACIÓN-->
 
 <div class="MENU">
-  <nav class="navbar fixed-bottom navbar-collapse navbar-dark bg-dark">
+  <nav class="navbar fixed-bottom navbar-collapse navbar-dark bg-dark juju">
     <h7 class="text-white">Antonio Espejo, 2020</h7>
   </nav>
 
@@ -64,5 +64,8 @@ export default {
 <style scoped>
 .MENU {
   font-family: "Times New Roman", Times, serif;
+}
+.juju {
+  background: linear-gradient(-90deg, rgb(0, 26, 255), black);
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="banner">
   <div class="menu">
     <menucustom></menucustom>
   </div>
@@ -37,10 +37,61 @@
       crossorigin="anonymous"
     ></script>
   </body>
+  <!-- 
+  -->
+  <!-- 
+  -->
+  <div class="jumbotron">
+    <h1 class="display-4" style="¡">Registrate!!</h1>
+    <div class="lead">
+      <div class="col">
+        <label for="exampleInputEmail1">Nombre</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nombre"
+          aria-describedby="emailHelp"
+          v-model="nombre"
+        />
+      </div>
+      <div class="col">
+        <label for="exampleInputEmail1">Apellidos</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nombre"
+          aria-describedby="emailHelp"
+          v-model="apellidos"
+        />
+      </div>
+      <div class="col">
+        <label for="exampleInputEmail1">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+          v-model="email"
+        />
+        <small id="emailHelp" class="form-text text-muted">Pon un email correcto</small>
+      </div>
+      <div class="col">
+        <label for="exampleInputPassword1">Contraseña</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" v-model="password" />
+      </div>
+      <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+        <label class="form-check-label" for="exampleCheck1">Dispuesto a comenzar la aventura!</label>
+      </div>
+      <button type="submit" class="btn btn-primary" @click="registro()">Registrate!</button>
+    </div>
+  </div>
 
   <!-- 
   -->
-  <h2>Registrate!</h2>
+  <!-- 
+  -->
+  <!-- <h2>Registrate!</h2>
   <form>
     <div class="form-row">
       <div class="col">
@@ -88,11 +139,13 @@
       <label class="form-check-label" for="exampleCheck1">Dispuesto a comenzar la aventura!</label>
     </div>
     <button type="submit" class="btn btn-primary" @click="registro()">Registrate!</button>
-  </form>
+  </form>-->
+  <footercustom></footercustom>
 </div>
 </template>
 <script>
 import menucustom from "@/components/MenuCustom.vue";
+import footercustom from "@/components/FooterCustom.vue";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -100,6 +153,7 @@ export default {
   name: "registro",
   components: {
     menucustom,
+    footercustom,
   },
   data() {
     return {
@@ -181,7 +235,29 @@ export default {
 </script>
 
 <style scoped>
-.menu {
-  height: 200px;
+.jumbotron {
+  margin-top: 70px;
+  margin-left: 35%;
+  height: 650px;
+  width: 600px;
+  background: linear-gradient(-90deg, black, rgb(0, 26, 255));
+  font-family: "Mystery Quest";
+  box-shadow: 3px 5px 15px rgb(0, 10, 10);
+  text-align: center;
+  color: cornsilk;
+  font-size: 1.5rem;
+}
+.jumbotron button {
+  margin-top: 40px;
+  font-size: 2rem;
+  background: green;
+}
+.banner {
+  height: 100vh;
+  width: 100%;
+  background: url("foto.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 </style>

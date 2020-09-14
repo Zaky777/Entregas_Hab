@@ -44,7 +44,55 @@
   FORMULARIO DE AÑADIR viaje
 
   -->
-  <form>
+  <div class="jumbotron">
+    <h1 class="display-4" style="¡">¿Que viaje nos recomiendas?</h1>
+    <div class="lead">
+      <div class="form-row">
+        <div class="col" id="selecciondefoto">
+          <label for="file">Selecciona tus fotos.</label>
+          <input type="file" id="fotos" name="fotos" ref="fotos" @change="handleFileUpload()" />
+        </div>
+      </div>
+      <hr class="my-4" />
+      <h2>Localización</h2>
+      <div class="form-group datos">
+        <div class="col">
+          <label for="localizacion">Localización:</label>
+          <input
+            type="text"
+            name="localizacion"
+            placeholder="lugar del viaje"
+            v-model="localizacion"
+          />
+        </div>
+
+        <div class="col">
+          <label for="pais">País:</label>
+
+          <input type="text" name="pais" placeholder="pais del usuario" v-model="pais" />
+        </div>
+        <div class="col">
+          <label for="enclaves_de_interes">Enclaves de Interés:</label>
+          <input
+            type="text"
+            name="enclaves_de_interes"
+            placeholder="enclaves del lugar"
+            v-model="enclaves_de_interes"
+          />
+        </div>
+        <div class="col">
+          <label for="fecha">Fecha:</label>
+
+          <input type="text" name="fecha" placeholder="fecha del viaje" v-model="fecha" />
+        </div>
+        <button type="submit" class="btn btn-primary" @click="createViaje()">Registra tu aventura</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 
+  -->
+  <!--  <form>
     <div class="form-row">
       <div class="col" id="selecciondefoto">
         <label for="file">Selecciona tus fotos.</label>
@@ -78,8 +126,8 @@
       </div>
     </div>
     <br />
-    <button type="submit" class="btn btn-primary" @click="createViaje()">Registra tu aventura</button>
-  </form>
+  </form>-->
+  <footercustom></footercustom>
 </div>
 </template>
 
@@ -87,10 +135,12 @@
 import axios from "axios";
 import menucustom from "@/components/MenuCustom.vue";
 import Swal from "sweetalert2";
+import footercustom from "@/components/FooterCustom.vue";
 export default {
   name: "addViajes",
   components: {
     menucustom,
+    footercustom,
   },
   data() {
     return {
@@ -233,7 +283,18 @@ export default {
 </script>
 
 <style scoped>
-.menu {
-  height: 200px;
+.jumbotron {
+  margin-top: 80px;
+  height: 650px;
+  background: linear-gradient(-90deg, black, rgb(0, 26, 255));
+  font-family: "Mystery Quest";
+  box-shadow: 3px 5px 15px rgb(0, 10, 10);
+  /*  text-align: center; */
+  color: cornsilk;
+}
+.jumbotron .datos button {
+  margin-top: 40px;
+  background: green;
+  font-size: 1.5rem;
 }
 </style>
